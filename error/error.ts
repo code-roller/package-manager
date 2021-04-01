@@ -11,5 +11,9 @@ export class PackageError {
 
     public evokePackageException = () => {
         const output:Array<string> = [red(this.message), yellow(this.suggestion)]
+        for(let outputIndex=0; outputIndex<output.length; outputIndex++){
+            console.log(output[outputIndex])
+        }
+        process.exit()
     }
 }

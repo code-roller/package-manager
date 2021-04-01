@@ -1,3 +1,7 @@
+import { yellow } from 'chalk'
+
+import { PackageError } from "../error/error";
+import { APPLICATION_VERSION } from '../index'
 
 export class PackageArgumentParser {
     private readonly arguments:Array<string>;
@@ -12,10 +16,26 @@ export class PackageArgumentParser {
         if(this.length == 0){
             return null;
         } else if([1, 2].includes(this.length)){
+            const execute:Record<string, any> = {
+                "-v" : () => {
+                    this.logApplicationVersion(APPLICATION_VERSION)
+                }
+            }
             const validArguments:Array<Array<string>> = [["-v", "-p"],["get", "remove"]]
             if(!(validArguments[this.length-1].includes(this.arguments[0]))){
-                console.log("Error")
+                const exception = new PackageError(
+                    "An error occured while parsing your arguments",
+                    "Try again"
+                ).evokePackageException()
+            } else {
+                if(Object.keys(execute).includes(this.arguments[0])){
+                    execute[this.arguments[0]]()
+                }
             }
         }
+    }
+
+    public logApplicationVersion = (version:string) => {
+        console.log(yellow(APPLICATION_VERSION))
     }
 }
