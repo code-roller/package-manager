@@ -35,7 +35,9 @@ export class Packages {
                     if(releasesData.length != 0){
                         callback({
                             data : repo,
-                            releases : releasesData
+                            releases : releasesData[
+                                releasesData.length - 1
+                            ]
                         })
                     }
                 }).catch((exception) => {
@@ -53,8 +55,6 @@ export class Packages {
         }).then(() => {
         
         })
-
-        console.log(this.releaseList)
     }
 
     public static packages = (callback:Function) => {

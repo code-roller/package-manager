@@ -1,4 +1,4 @@
-import { yellow } from 'chalk'
+import { magentaBright, yellow } from 'chalk'
 
 import { PackageError } from "../error/error";
 import { APPLICATION_VERSION } from '../index'
@@ -23,7 +23,10 @@ export class PackageArgumentParser {
                 },
                 "-p" : () => {
                     const packages = Packages.packages((data:any) => {
-                        console.log(data)
+                        const name = magentaBright(`[${data.data.name}]`)
+                        console.log(
+                            `${name} - ${yellow(data.data.description)}`
+                        )
                     })
                 }
             }
