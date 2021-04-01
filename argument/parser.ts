@@ -22,7 +22,9 @@ export class PackageArgumentParser {
                     this.logApplicationVersion(APPLICATION_VERSION)
                 },
                 "-p" : () => {
-                    const packages = Packages.packages()
+                    const packages = Packages.packages((data:any) => {
+                        console.log(data)
+                    })
                 }
             }
             const validArguments:Array<Array<string>> = [["-v", "-p"],["get", "remove"]]
