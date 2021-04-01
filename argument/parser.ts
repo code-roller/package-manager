@@ -2,6 +2,7 @@ import {magentaBright, yellow} from 'chalk';
 
 import {PackageError} from '../error/error';
 import {APPLICATION_VERSION} from '../index';
+import { IntsallPackage } from '../install';
 import {Packages} from '../packages/packages';
 
 export class PackageArgumentParser {
@@ -48,6 +49,19 @@ export class PackageArgumentParser {
       } else {
         if (Object.keys(execute).includes(this.arguments[0])) {
           execute[this.arguments[0]]();
+        } else{
+          if(this.arguments[0] == "get"){
+            const install = this.arguments[1]
+            const installPackage = Packages.packages((data:any) => {
+              if(data.data.name == install){
+                const zip = new IntsallPackage.Installer({
+                  name : data.data.name,
+                  releaseName : data.releases.name,
+                  releaseData : data.releases.zipball_url
+                })
+              }
+            })
+          }
         }
       }
     }
