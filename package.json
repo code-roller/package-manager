@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/code-roller/package-manager#readme",
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@types/chalk": "^2.2.0",
-    "@types/node": "^14.14.37"
+    "@types/node": "^14.14.37",
+    "axios": "^0.21.1"
   }
 }

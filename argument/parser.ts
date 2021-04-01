@@ -2,6 +2,7 @@ import { yellow } from 'chalk'
 
 import { PackageError } from "../error/error";
 import { APPLICATION_VERSION } from '../index'
+import { Packages } from '../packages/packages';
 
 export class PackageArgumentParser {
     private readonly arguments:Array<string>;
@@ -19,6 +20,9 @@ export class PackageArgumentParser {
             const execute:Record<string, any> = {
                 "-v" : () => {
                     this.logApplicationVersion(APPLICATION_VERSION)
+                },
+                "-p" : () => {
+                    const packages = Packages.packages()
                 }
             }
             const validArguments:Array<Array<string>> = [["-v", "-p"],["get", "remove"]]
