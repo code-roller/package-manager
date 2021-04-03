@@ -1,4 +1,8 @@
 import * as axios from 'axios'
+import { createWriteStream } from 'fs'
+import { join } from 'path'
+import { cwd } from 'process'
+import * as extract from 'extract-zip'
 
 export namespace IntsallPackage {
 
@@ -13,7 +17,23 @@ export namespace IntsallPackage {
 
         constructor(data:PackageData) {
             this.data = data
-            console.log(this.data)
+            
+            const file = this.getFile(this.data.releaseData)
+        }
+
+        private getFile = async (url:string) => {
+            const response = await axios.default({
+                method: 'GET',
+                url: url,
+                responseType: 'stream'
+              })
+            response.data.pipe(createWriteStream(join(
+                cwd(), "file.zip"
+            )))
+
+            await extract.default(join(cwd(), "file.zip"), {dir:this.data.name}, (error) =>{
+                console.log(error)
+            })
         }
     }
 

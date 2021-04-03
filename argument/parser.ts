@@ -39,7 +39,7 @@ export class PackageArgumentParser {
       };
       const validArguments: Array<Array<string>> = [
         ['-v', '-p'],
-        ['get', 'remove'],
+        ['get'],
       ];
       if (!validArguments[this.length - 1].includes(this.arguments[0])) {
         const exception = new PackageError(
